@@ -6,5 +6,6 @@
     */
     $routes = [
         'home' => 'Home::index',
-        'home/create' => 'Home::create'
+        'home/create' => 'Home::create',
+        'home/{id}' => 'Home::create'
     ];
