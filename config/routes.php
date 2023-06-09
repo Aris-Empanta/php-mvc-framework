@@ -5,6 +5,7 @@
         The method format is the following: {controller}::{method}
     */
     $routes = [
+        '' => 'Home::index',
         'home' => 'Home::index',
         'home/create' => 'Home::create',
         'home/{id}' => 'Home::create'
