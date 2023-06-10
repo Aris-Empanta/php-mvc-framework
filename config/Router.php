@@ -63,13 +63,11 @@ class Router
                     $activeController = new $controllerNamespace();
                     $args = array_merge($params, [$queryParams]);
                     $activeController->$method(...$args);
-
-                    return; // Stop processing further routes
+                    
+                    // Stop processing further routes
+                    return; 
                 }
             }
-
-            // Render the 404 page
-            require '../app/controllers/_404.php';
             
             $_404 = new _404;
 

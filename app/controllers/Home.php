@@ -6,7 +6,8 @@ use App\Models\HomeModel;
 class Home
 {
     public function index() {
-        echo 'this is the home view';
+        $home = new HomeModel;
+        $home->getAllData('basic');
     }
 
     public function create() {

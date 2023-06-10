@@ -1,7 +1,5 @@
 <?php
 
-namespace config;
-
     //Database related constants to be modified
     define("DB_SERVER_NAME", "localhost");
     define("DB_NAME", "ormtest");

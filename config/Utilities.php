@@ -4,8 +4,7 @@ namespace Config;
 
 //A trait containing helper functions
 trait Utilities
-{
-    
+{    
      /*
         It returns an associative array with 3 key value pairs: column, expression, value.
         E.g. ["column" => "id", "expression" => >, "value" => "3"]

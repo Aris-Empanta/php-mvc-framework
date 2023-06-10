@@ -2,6 +2,7 @@
 
 namespace Config;
 use PDO, PDOException;
+require_once 'dbSettings.php';
 
 class DbConnection
 {

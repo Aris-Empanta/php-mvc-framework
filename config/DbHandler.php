@@ -1,6 +1,7 @@
 <?php
 
 namespace Config;
+use Config\Utilities;
 use PDOException;
 
 class DbHandler extends DbConnection
@@ -16,7 +17,7 @@ class DbHandler extends DbConnection
         
         $result = $stmt->fetchAll(); // Fetch all rows from the executed query
     
-        return $result; // Return the fetched data   
+        print_r($result); // Return the fetched data   
     }
 
     public function getDataByCondition($table, $condition)
