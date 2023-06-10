@@ -1,5 +1,8 @@
 <?php
 
+namespace App\Controllers;
+use App\Models\HomeModel;
+
 class Home
 {
     public function index() {

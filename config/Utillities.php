@@ -1,5 +1,7 @@
 <?php
 
+namespace Config;
+
 //A trait containing helper functions
 trait Utilities
 {

@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Controllers;
+
 class _404
 {
     public function index() {

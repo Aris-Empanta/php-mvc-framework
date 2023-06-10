@@ -1,5 +1,8 @@
 <?php
 
+namespace Config;
+use PDOException;
+
 class DbHandler extends DbConnection
 {
     use Utilities;

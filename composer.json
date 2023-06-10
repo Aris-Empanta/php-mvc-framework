@@ -1,0 +1,17 @@
+{
+    "name": "eams2/mvc_framework",
+    "description": "A micro mvc framework",
+    "type": "framework",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Config\\": "config/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Aris Empanta"
+        }
+    ],
+    "require": {}
+}

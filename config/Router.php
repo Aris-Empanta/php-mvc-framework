@@ -1,5 +1,8 @@
 <?php
 
+namespace Config;
+use App\Controllers\_404;
+
 class Router
 {
     public function handleRoutes()
@@ -30,9 +33,11 @@ class Router
             $controller = $methodArray[0];
             $method = $methodArray[1];
 
-            require '../app/controllers/Home.php';
-
-            $activeController = new $controller;
+            //We construct the namespace dynamically
+            $controllerNamespace = 'App\\Controllers\\' . $controller; 
+                        
+            //we run the controllers method passing the params and query params arguments if they exist.
+            $activeController = new $controllerNamespace();
             $activeController->$method();
         } else {
             // Check if the routing path matches a route with parameters
@@ -50,12 +55,12 @@ class Router
                     //We extract the params or the query params
                     $params = $this->extractParams($routingPath, $pattern);
                     $queryParams = $this->extractQueryParams();
-
-                    //We import the controller
-                    require '../app/controllers/'.$controller.'.php';
-
+                    
+                    //We construct the namespace dynamically
+                    $controllerNamespace = 'App\\Controllers\\' . $controller; 
+                        
                     //we run the controllers method passing the params and query params arguments if they exist.
-                    $activeController = new $controller;
+                    $activeController = new $controllerNamespace();
                     $args = array_merge($params, [$queryParams]);
                     $activeController->$method(...$args);
 
