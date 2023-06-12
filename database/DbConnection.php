@@ -1,6 +1,6 @@
 <?php
 
-namespace Config;
+namespace Database;
 use PDO, PDOException;
 require_once 'dbSettings.php';
 

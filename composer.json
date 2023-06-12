@@ -5,7 +5,9 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "Config\\": "config/"
+            "Config\\": "config/",
+            "Database\\": "database/",
+            "Libraries\\": "libraries/"
         }
     },
     "authors": [

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-use Config\DbHandler;
+use Database\DbHandler;
 
 class HomeModel extends DbHandler
 {
