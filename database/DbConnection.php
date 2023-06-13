@@ -32,4 +32,10 @@ class DbConnection
             return null;
         }
     }
+    
+    //The method to close the database connection instance after we are done using it.
+    public function closeDbConnection(){
+        $this->dbConnection = null;
+        echo 'connection closed';
+    }
 }

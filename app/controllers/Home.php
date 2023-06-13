@@ -6,8 +6,10 @@ use App\Models\HomeModel;
 class Home
 {
     public function index() {
-        $home = new HomeModel;
-        $home->getAllData('basic');
+        $homeModel = new HomeModel;
+        $homeModel->getAllData('basic');
+
+        $homeModel->closeDbConnection();
     }
 
     public function create() {

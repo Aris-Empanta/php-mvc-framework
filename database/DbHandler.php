@@ -10,9 +10,8 @@ class DbHandler extends DbConnection
     
     public function getAllData($table)
     {
-        $connection = $this->dbConnection;
         $sql = "SELECT * FROM $table";
-        $stmt= $connection->prepare($sql);
+        $stmt=  $this->dbConnection->prepare($sql);
         $stmt->execute();
         
         $result = $stmt->fetchAll(); // Fetch all rows from the executed query
