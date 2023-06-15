@@ -14,4 +14,4 @@ $router = new Router();
 
 $router->handleRoutes();
 
-//trigger_error("Following error occured", E_ERROR);
+trigger_error("Following error occured", E_USER_NOTICE);

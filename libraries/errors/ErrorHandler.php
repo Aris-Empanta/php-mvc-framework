@@ -16,9 +16,15 @@ class ErrorHandler
             specifies the character set as UTF-8, which is commonly used for web applications.
         */
         $errorMessage = htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8');
+        $error = error_get_last();       
 
-        //write logic
-        echo $errorNumber;
+        $errorsLog = dirname(dirname(__DIR__)). '/logs/errors.txt';
+
+        $writeToFile = fopen($errorsLog, 'w');
+
+        fwrite($writeToFile, $error['message'] );
+
+        fclose($writeToFile);
     }
 
     public static function handleFatalErrors() {
@@ -33,7 +39,7 @@ class ErrorHandler
             // We clean the output buffer in order to render the error page below.
             ob_clean();
             // Do your stuff
-             echo 'fatal error';
+             echo $error;
         }
     }
 }

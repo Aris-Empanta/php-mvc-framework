@@ -1,0 +1,1 @@
+fwrite(): Passing null to parameter #2 ($data) of type string is deprecated
