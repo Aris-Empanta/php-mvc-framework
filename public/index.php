@@ -13,5 +13,3 @@ register_shutdown_function([ErrorHandler::class, 'handleFatalErrors']);
 $router = new Router();
 
 $router->handleRoutes();
-
-trigger_error("Following error occured", E_USER_NOTICE);

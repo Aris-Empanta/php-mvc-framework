@@ -1,1 +1,6 @@
-fwrite(): Passing null to parameter #2 ($data) of type string is deprecated
+[Fri, 16 Jun 2023 16:14:54 +0200] [ Error Type: 8192] Optional parameter $data declared before required parameter $condition is implicitly treated as a required parameter - OCCURED IN C:\xampp\htdocs\mvc_framework\database\DbHandler.php IN LINE 77
+[Fri, 16 Jun 2023 16:14:54 +0200] [ Error Type: 1] Uncaught ValueError: trigger_error(): Argument #2 ($error_level) must be one of E_USER_ERROR, E_USER_WARNING, E_USER_NOTICE, or E_USER_DEPRECATED in C:\xampp\htdocs\mvc_framework\public\index.php:17
+Stack trace:
+#0 C:\xampp\htdocs\mvc_framework\public\index.php(17): trigger_error(&#039;Following error...&#039;, 2)
+#1 {main}
+  thrown - OCCURED IN C:\xampp\htdocs\mvc_framework\public\index.php IN LINE 17
