@@ -74,7 +74,7 @@ class DbHandler extends DbConnection
         $stmt->execute($data);
     }
 
-    public function updateByCondition($table, $data = [], $condition)
+    public function updateByCondition($table, $data, $condition)
     {
         try{
                 $connection = $this->dbConnection;

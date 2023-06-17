@@ -3,6 +3,8 @@
 namespace Libraries\Errors;
 
 use DateTime;
+require dirname(dirname(__DIR__)) .'/config/constants.php';
+use App\Controllers\Error;
 
 
 class ErrorHandler
@@ -21,14 +23,20 @@ class ErrorHandler
         */
         $errorMessage = htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8');
 
-        $errorsLog = dirname(dirname(__DIR__)). '/logs/errors.txt';
-
-        if(!$errorsLog)
-
+        $errorsLog = dirname(dirname(__DIR__)). ERRORS_LOG;
 
         $formattedErrorMessage = ErrorHandler::formatErrorMessage($errorNumber, $errorMessage, $errorFile, $errorLine);     
-
-        echo $formattedErrorMessage;
+        
+        //In production the visitor should not see the error for security reasons
+        if (DEBUG_MODE) {
+            //show the error
+            echo $formattedErrorMessage;
+        }
+        else {
+            //use the error controller
+            Error::index();
+        }
+        
 
         $fileHandle = fopen($errorsLog, 'a');
         if ($fileHandle) {
@@ -56,14 +64,22 @@ class ErrorHandler
             if (in_array($errorNumber, [E_ERROR, E_PARSE, E_CORE_ERROR, E_CORE_WARNING, E_COMPILE_ERROR, E_COMPILE_WARNING])) {
                 // We clean the output buffer in order to render the error page below.
                 ob_clean();
-                $errorsLog = dirname(dirname(__DIR__)) . '/logs/errors.txt';
+                $errorsLog = dirname(dirname(__DIR__)) . ERRORS_LOG;
     
                 $writeToFile = fopen($errorsLog, 'a'); // Use 'a' mode for appending
     
                 if ($writeToFile !== false) {
                     $errorMessage = ErrorHandler::formatErrorMessage($errorNumber, $errorMessage, $errorFile, $errorLine);
     
-                    echo $errorMessage;
+                    //In production the visitor should not see the error for security reasons
+                    if (DEBUG_MODE) {
+                        //show the error
+                        echo $errorMessage;
+                    }
+                    else {
+                        //use the error controller
+                        Error::index();
+                    }
     
                     fwrite($writeToFile, $errorMessage);
     
@@ -102,7 +118,7 @@ class ErrorHandler
 
         //return $errorType;
 
-        return  '[' . $date->format('r') . '] [ Error Type: ' . $errorNumber . '] ' 
+        return  '[' . $date->format('r') . '] [ Error Type: ' . $errorType . '] ' 
                 . $errorMessage . ' - OCCURED IN ' . $errorFile . ' IN LINE '
                 . $errorLine . PHP_EOL;
     }
