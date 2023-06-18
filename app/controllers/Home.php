@@ -3,6 +3,7 @@
 namespace App\Controllers;
 use App\Models\HomeModel;
 use Exception;
+use PDOException;
 
 class Home
 {
@@ -13,12 +14,15 @@ class Home
         
         try 
         {
-            $homeModel->getAllData('basic');
-        } 
-        catch(Exception $e) 
-        {
+            $row = $homeModel->getDataByCondition('basic', 'name=john');
+            $name = $row[0]['name'];
 
+            require dirname(__DIR__) . '/views/home.views.php';
         } 
+        catch (PDOException $e) {
+
+            echo "Error executing query: " . $e->getMessage();
+        }
         finally 
         {
             $homeModel->closeDbConnection();

@@ -19,10 +19,14 @@ class DbHandler extends DbConnection
         print_r($result); // Return the fetched data   
     }
 
+    public function query($query)
+    {
+        $stmt=  $this->dbConnection->prepare($query);
+        $stmt->execute(); 
+    }
+
     public function getDataByCondition($table, $condition)
     {
-        $connection = $this->dbConnection;
-
         //we save the condition parts (column expression and value e.p. id > 3) in an associative array variable.
         $conditionAssoc = $this->conditionAssoc($condition);
 
@@ -35,7 +39,7 @@ class DbHandler extends DbConnection
 
         $sql = "SELECT * FROM $table WHERE $conditionString";
         
-        $stmt= $connection->prepare($sql);
+        $stmt= $this->dbConnection->prepare($sql);
                 
         //We create an associative array with all the data that will be binded to the query
         $data =  [$column=>$value];
@@ -45,13 +49,11 @@ class DbHandler extends DbConnection
 
         $result = $stmt->fetchAll(); // Fetch all rows from the executed query
     
-        print_r($result); // Return the fetched data 
+        return $result; // Return the fetched data 
     }
 
     public function saveData($table, $data = [])
     {
-        $connection = $this->dbConnection;
-
         $columnsArray = array_keys($data);
 
         $columnsString = implode(", ", $columnsArray);
@@ -70,15 +72,13 @@ class DbHandler extends DbConnection
         $sql = "INSERT INTO $table ($columnsString) 
                 VALUES ($preparedStatementValues)";
 
-        $stmt= $connection->prepare($sql);
+        $stmt= $this->dbConnection->prepare($sql);
         $stmt->execute($data);
     }
 
     public function updateByCondition($table, $data, $condition)
     {
         try{
-                $connection = $this->dbConnection;
-
                 //the columns' names that will be modified
                 $columns = array_keys($data);
 
@@ -107,7 +107,7 @@ class DbHandler extends DbConnection
                         SET $updateString
                         WHERE $conditionString";
 
-                $stmt= $connection->prepare($sql);
+                $stmt= $this->dbConnection->prepare($sql);
                 
                 //We create an associative array with all the data that will be binded to the query
                 $allData =  array_merge($data, [$column=>$value]);
@@ -123,8 +123,6 @@ class DbHandler extends DbConnection
 
     public function deleteDataByCondition($table, $condition) {
 
-        $connection = $this->dbConnection;
-
         //we save the condition parts (column expression and value e.p. id > 3) in an associative array variable.
         $conditionAssoc = $this->conditionAssoc($condition);
 
@@ -137,7 +135,7 @@ class DbHandler extends DbConnection
 
         $sql = "DELETE FROM $table WHERE $conditionString";
         
-        $stmt= $connection->prepare($sql);
+        $stmt= $this->dbConnection->prepare($sql);
                 
         //We create an associative array with all the data that will be binded to the query
         $data =  [$column=>$value];
