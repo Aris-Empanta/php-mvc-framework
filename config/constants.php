@@ -9,3 +9,5 @@
 define('DEBUG_MODE', true);
 //The relative path to the errors' log from the root directory
 define('ERRORS_LOG',  '/logs/errors.txt');
+//We adjust the project's base path.
+define('BASE_PATH', 'http://localhost/mvc_framework/public/');

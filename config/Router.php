@@ -10,26 +10,31 @@ class Router
         // Import all the registered routes to handle them accordingly.
         require 'routes.php';
 
-        // The whole request URI
+        // The request URI
         $requestUri = $_SERVER['REQUEST_URI'];
 
         /* 
             In the debugging environment, the request URI will start with
-            this path "/mvc_framework/public/" in contrast to the production 
-            environment. If this part exists, we remove it.
+            a path like this "/projects-root-folder/public/" in contrast to 
+            the production environment. If this part exists, it will be 
+            removed as shown below.
         */
-        $debuggingBasePath = "/mvc_framework/public/";
 
-        // Once we remove the above mentioned path, we trim the path for any '/' at the end.
-        $routingPath = trim(str_replace($debuggingBasePath, '', $requestUri), '/');
+        if ($_SERVER['SERVER_NAME'] === 'localhost') {
 
+            //We isolate the "/projects-root-folder/public/" string to remove it.
+            $debuggingBasePath = str_replace('http://localhost/','',BASE_PATH);
+            $requestUri = trim(str_replace($debuggingBasePath, '', $requestUri), '/');
+        }
+        echo $requestUri;
+        
         // An array containing all the valid route paths.
         $validRoutes = array_keys($routes);
 
         // If the route exists, we trigger the corresponding method; otherwise, we render the 404 page.
-        if (in_array($routingPath, $validRoutes)) {
+        if (in_array($requestUri, $validRoutes)) {
             //We split the controller and the method
-            $methodArray = explode('::', $routes[$routingPath]);
+            $methodArray = explode('::', $routes[$requestUri]);
             $controller = $methodArray[0];
             $method = $methodArray[1];
 
@@ -46,14 +51,14 @@ class Router
                 $pattern = $this->getRoutePattern($validRoute);
 
                 //if the route has params
-                if ($this->matchesPattern($routingPath, $pattern)) {
+                if ($this->matchesPattern($requestUri, $pattern)) {
                     //We split the controller and the method
                     $methodArray = explode('::', $routes[$validRoute]);
                     $controller = $methodArray[0];
                     $method = $methodArray[1];
 
                     //We extract the params or the query params
-                    $params = $this->extractParams($routingPath, $pattern);
+                    $params = $this->extractParams($requestUri, $pattern);
                     $queryParams = $this->extractQueryParams();
                     
                     //We construct the namespace dynamically
