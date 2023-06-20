@@ -51,4 +51,10 @@ trait Utilities
                   return $conditionAssociativeArray;
             }
         }
+
+        
+        public function redirect($route) {
+
+            header('Location:' . BASE_PATH . $route);            
+    }
 }

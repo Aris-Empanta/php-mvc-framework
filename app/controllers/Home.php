@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 use App\Models\HomeModel;
-use Exception;
 use PDOException;
 
 class Home
