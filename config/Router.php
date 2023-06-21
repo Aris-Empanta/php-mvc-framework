@@ -24,9 +24,9 @@ class Router
 
             //We isolate the "/projects-root-folder/public/" string to remove it.
             $debuggingBasePath = str_replace('http://localhost/','',BASE_PATH);
-            $requestUri = trim(str_replace($debuggingBasePath, '', $requestUri), '/');
+            //We allow any amount of '/' at the end of the url, but only one at the beginning.
+            $requestUri = rtrim(str_replace($debuggingBasePath, '', preg_quote($requestUri)), '/');
         }
-        echo $requestUri;
         
         // An array containing all the valid route paths.
         $validRoutes = array_keys($routes);
